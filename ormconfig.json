@@ -4,5 +4,9 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "apivendas"
+  "database": "apivendas",
+  "migrations":["./src/shared/typeorm/migrations/*.ts"],
+  "cli": {
+    "migrationsDir":"./src/shared/typeorm/migrations"
+  }
 }
