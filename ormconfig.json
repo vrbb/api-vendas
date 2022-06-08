@@ -5,6 +5,7 @@
   "username": "postgres",
   "password": "docker",
   "database": "apivendas",
+  "synchronize": true,
   "entities": [ "./src/modules/products/typeorm/entities/*.ts"],
   "migrations":["./src/shared/typeorm/migrations/*.ts"],
   "cli": {
