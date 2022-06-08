@@ -8,7 +8,7 @@ import {
 
 @Entity('products')
 class Product {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
