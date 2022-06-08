@@ -4,7 +4,7 @@ import Product from '../typeorm/entities/Product';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 
 interface IRequest {
-  id: number;
+  id: string;
 }
 
 class ShowProductService {
