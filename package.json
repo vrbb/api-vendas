@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/joi": "^17.2.3",
+    "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
