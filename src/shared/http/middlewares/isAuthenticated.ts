@@ -16,7 +16,7 @@ export default function isAthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decodeToken = verify(token, auth.jwt.secret);
+    const decodedToken = verify(token, auth.jwt.secret);
     return next();
   } catch {
     throw new AppError('Invalid JWT Token.');
