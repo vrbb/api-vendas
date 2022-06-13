@@ -14,10 +14,20 @@ usersRouter.post(
       name: Joi.string().required(),
       email: Joi.string().required(),
       password: Joi.string().required(),
-      avatar: Joi.string(),
     },
   }),
   usersController.create,
+);
+
+usersRouter.post(
+  '/session',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().required(),
+      password: Joi.string().required(),
+    },
+  }),
+  usersController.createSession,
 );
 
 export default usersRouter;
