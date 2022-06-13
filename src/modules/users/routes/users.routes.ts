@@ -31,4 +31,14 @@ usersRouter.post(
   usersController.createSession,
 );
 
+usersRouter.post(
+  '/avatar',
+  isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      avatarFileName: Joi.string().required(),
+    },
+  }),
+  usersController.uploadAvatar,
+);
 export default usersRouter;

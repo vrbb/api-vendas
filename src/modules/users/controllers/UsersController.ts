@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CreateSessionsService from '../services/CreateSessionsService';
 import CreateUserService from '../services/CreateUserService';
 import ListUsersService from '../services/ListUsersService';
+import UpdateUserAvataService from '../services/UpdateUserAvatarService';
 
 export default class UsersController {
   public async index(resquest: Request, response: Response): Promise<Response> {
@@ -39,5 +40,20 @@ export default class UsersController {
       password,
     });
     return response.json(session);
+  }
+
+  public async uploadAvatar(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const avatarFileName = request.body;
+    const userId = request.user.id;
+    const userAvatarService = new UpdateUserAvataService();
+
+    const avatar = await userAvatarService.execute({
+      avatarFileName,
+      userId,
+    });
+    return response.json(avatar);
   }
 }
