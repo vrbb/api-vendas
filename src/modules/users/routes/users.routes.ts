@@ -40,7 +40,7 @@ usersRouter.patch(
   isAuthenticated,
   upload.single('avatar'),
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       avatarFileName: Joi.string().required(),
     },
   }),
