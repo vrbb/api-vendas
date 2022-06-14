@@ -4,9 +4,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import ForgotPasswordController from '../controllers/ForgotPasswordController';
+import ResetPasswordController from '../controllers/ResetPasswordController';
 
 const usersRouter = Router();
 const usersController = new UsersController();
+const forgotPasswordController = new ForgotPasswordController();
+const resetPasswordController = new ResetPasswordController();
 
 const upload = multer(uploadConfig);
 
@@ -46,4 +50,27 @@ usersRouter.patch(
   }),
   usersController.uploadAvatar,
 );
+
+usersRouter.post(
+  '/forgotpassword',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().required(),
+    },
+  }),
+  forgotPasswordController.create,
+);
+
+usersRouter.post(
+  '/resetpassword',
+  celebrate({
+    [Segments.BODY]: {
+      token: Joi.string().uuid().required(),
+      password: Joi.string().required(),
+      passwordConfirmation: Joi.string().required().valid(Joi.ref('password')),
+    },
+  }),
+  resetPasswordController.create,
+);
+
 export default usersRouter;
