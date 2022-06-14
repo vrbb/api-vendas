@@ -46,14 +46,12 @@ export default class UsersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const avatarFileName = request.body;
-    const userId = request.user.id;
     const userAvatarService = new UpdateUserAvataService();
 
-    const avatar = await userAvatarService.execute({
-      avatarFileName,
-      userId,
+    const user = await userAvatarService.execute({
+      avatarFileName: request.file.filename,
+      userId: request.user.id,
     });
-    return response.json(avatar);
+    return response.json(user);
   }
 }
