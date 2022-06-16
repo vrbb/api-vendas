@@ -1,7 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository, InsertResult } from 'typeorm';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
-import Product from '../typeorm/entities/Product';
 
 interface IRequest {
   name: string;
@@ -10,7 +9,11 @@ interface IRequest {
 }
 
 class CreateProductService {
-  public async execute({ name, price, quantity }: IRequest): Promise<InsertResult> {
+  public async execute({
+    name,
+    price,
+    quantity,
+  }: IRequest): Promise<InsertResult> {
     const productsRepository = getCustomRepository(ProductRepository);
     const productExists = await productsRepository.findByName(name);
     if (productExists) {
