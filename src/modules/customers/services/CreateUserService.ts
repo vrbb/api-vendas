@@ -1,27 +1,27 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository, InsertResult } from 'typeorm';
-import { CustumersRepository } from '../typeorm/repositories/CustomerRepository';
+import { CustomerRepository } from '../typeorm/repositories/CustomerRepository';
 
 interface IRequest {
   name: string;
   email: string;
 }
 
-class CreateCustumerService {
+class CreateCustomerService {
   public async execute({ name, email }: IRequest): Promise<InsertResult> {
-    const custumerRepository = getCustomRepository(CustumersRepository);
-    const custumerExist = await custumerRepository.findByEmail(email);
-    if (custumerExist) {
-      throw new AppError('There is already one custumer with this email!');
+    const customerRepository = getCustomRepository(CustomerRepository);
+    const customerExist = await customerRepository.findByEmail(email);
+    if (customerExist) {
+      throw new AppError('There is already one customer with this email!');
     }
 
-    const custumer = custumerRepository.insert({
+    const customer = customerRepository.insert({
       name,
       email,
     });
 
-    return custumer;
+    return customer;
   }
 }
 
-export default CreateCustumerService;
+export default CreateCustomerService;

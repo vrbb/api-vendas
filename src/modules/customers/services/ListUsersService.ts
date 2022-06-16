@@ -1,13 +1,13 @@
 import 'typeorm';
 import { getCustomRepository } from 'typeorm';
 import Custumer from '../typeorm/entities/Customer';
-import { CustumersRepository } from '../typeorm/repositories/CustomerRepository';
+import { CustomerRepository } from '../typeorm/repositories/CustomerRepository';
 
 class ListCustumersService {
   public async execute(): Promise<Custumer[]> {
-    const custumerRepository = getCustomRepository(CustumersRepository);
+    const customerRepository = getCustomRepository(CustomerRepository);
 
-    const custumers = await custumerRepository.find();
+    const custumers = await customerRepository.find();
 
     return custumers;
   }
