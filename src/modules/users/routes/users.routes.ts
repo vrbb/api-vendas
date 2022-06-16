@@ -67,4 +67,26 @@ usersRouter.post(
   resetPasswordController.create,
 );
 
+usersRouter.get('/profile', isAuthenticated, usersController.showProfile);
+
+usersRouter.put(
+  '/profile',
+  isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string(),
+      email: Joi.string(),
+      password: Joi.string().optional(),
+      password_confirmation: Joi.string()
+        .valid(Joi.ref('password'))
+        .when('password', {
+          is: Joi.exist(),
+          then: Joi.required(),
+        }),
+      old_password: Joi.string(),
+    },
+  }),
+  usersController.updateProfile,
+);
+
 export default usersRouter;

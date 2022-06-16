@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import CreateSessionsService from '../services/CreateSessionsService';
 import CreateUserService from '../services/CreateUserService';
 import ListUsersService from '../services/ListUsersService';
+import ShowProfileService from '../services/ShowProfileService';
+import UpdateProfileService from '../services/UpdateProfileService';
 import UpdateUserAvataService from '../services/UpdateUserAvatarService';
 
 export default class UsersController {
@@ -52,6 +54,39 @@ export default class UsersController {
     const userAvatar = await userAvatarService.execute({
       avatarFileName: file.filename,
       userId: user.id,
+    });
+    return response.json(userAvatar);
+  }
+
+  public async showProfile(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const userProfile = new ShowProfileService();
+
+    const { user } = request as any;
+
+    const userAvatar = await userProfile.execute({
+      id: user.id,
+    });
+    return response.json(userAvatar);
+  }
+
+  public async updateProfile(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    console.log('Entrou no controller');
+    const userProfile = new UpdateProfileService();
+
+    const { user, body } = request as any;
+
+    const userAvatar = await userProfile.execute({
+      id: user.id,
+      name: body.name,
+      email: body.email,
+      password: body.password,
+      old_password: body.old_password,
     });
     return response.json(userAvatar);
   }
