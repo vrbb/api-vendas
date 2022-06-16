@@ -46,7 +46,7 @@ export default class UsersController {
     response: Response,
   ): Promise<Response> {
     const userAvatarService = new UpdateUserAvataService();
-    console.log('chegou no controller');
+
     const { file, user } = request as any;
 
     const userAvatar = await userAvatarService.execute({

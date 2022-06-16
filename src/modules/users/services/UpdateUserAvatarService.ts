@@ -15,7 +15,7 @@ class UpdateUserAvataService {
   public async execute({ avatarFileName, userId }: IRequest): Promise<User> {
     const userRepository = getCustomRepository(UsersRepository);
     const user = await userRepository.findById(userId);
-    console.log('Seu user é: %s', userId);
+
     if (!user) {
       throw new AppError('User not found.');
     }
