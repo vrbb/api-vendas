@@ -9,11 +9,11 @@ interface TokenPayload {
   sub: string;
 }
 
-export default function isAthenticated(
+export default async function isAthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
-): void {
+) {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -30,6 +30,8 @@ export default function isAthenticated(
     request.user = {
       id: sub,
     };
+
+    return next();
   } catch {
     throw new AppError('Invalid JWT Token.');
   }
