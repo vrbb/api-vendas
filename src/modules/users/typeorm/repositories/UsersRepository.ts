@@ -26,7 +26,7 @@ export class UsersRepository extends Repository<User> {
         email,
       },
     });
-    console.log(email);
+
     return user;
   }
 }
