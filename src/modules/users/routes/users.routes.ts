@@ -12,7 +12,7 @@ const usersController = new UsersController();
 const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
 
-const upload = multer(uploadConfig);
+const upload = multer({ dest: 'uploads/' });
 
 usersRouter.get('/', isAuthenticated, usersController.index);
 
@@ -43,11 +43,6 @@ usersRouter.patch(
   '/avatar',
   isAuthenticated,
   upload.single('avatar'),
-  celebrate({
-    [Segments.PARAMS]: {
-      avatarFileName: Joi.string().required(),
-    },
-  }),
   usersController.uploadAvatar,
 );
 

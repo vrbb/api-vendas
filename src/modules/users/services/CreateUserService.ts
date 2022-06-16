@@ -7,7 +7,6 @@ interface IRequest {
   name: string;
   email: string;
   password: string;
-  avatar: string;
 }
 
 class CreateUserService {
@@ -15,7 +14,6 @@ class CreateUserService {
     name,
     email,
     password,
-    avatar,
   }: IRequest): Promise<InsertResult> {
     const userRepository = getCustomRepository(UsersRepository);
     const userExist = await userRepository.findByEmail(email);
@@ -29,7 +27,6 @@ class CreateUserService {
       name,
       email,
       password: hashedPassword,
-      avatar,
     });
 
     return user;

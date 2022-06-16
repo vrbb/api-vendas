@@ -25,6 +25,7 @@ export default function isAthenticated(
     const decodedToken = verify(token, auth.jwt.secret);
 
     const { sub } = decodedToken as TokenPayload;
+    console.log('Autenticou');
 
     request.user = {
       id: sub,

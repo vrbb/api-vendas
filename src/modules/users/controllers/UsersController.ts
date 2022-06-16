@@ -14,14 +14,13 @@ export default class UsersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password, avatar } = request.body;
+    const { name, email, password } = request.body;
     const createUser = new CreateUserService();
 
     const user = await createUser.execute({
       name,
       email,
       password,
-      avatar,
     });
 
     return response.json(user);
@@ -47,11 +46,13 @@ export default class UsersController {
     response: Response,
   ): Promise<Response> {
     const userAvatarService = new UpdateUserAvataService();
+    console.log('chegou no controller');
+    const { file, user } = request as any;
 
-    const user = await userAvatarService.execute({
-      avatarFileName: request.file.filename,
-      userId: request.user.id,
+    const userAvatar = await userAvatarService.execute({
+      avatarFileName: file.filename,
+      userId: user.id,
     });
-    return response.json(user);
+    return response.json(userAvatar);
   }
 }
