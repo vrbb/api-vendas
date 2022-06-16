@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
 import { UserTokensRepository } from '../typeorm/repositories/UserTokensRepository';
-import date, { addHours, isAfter } from 'date-fns';
+import { addHours, isAfter } from 'date-fns';
 import { hash } from 'bcryptjs';
 
 interface IRequest {
@@ -35,7 +35,7 @@ class ResetPasswordService {
 
     user.password = await hash(password, 8);
 
-    userRepository.save(user);
+    await userRepository.save(user);
     console.log(userToken);
   }
 }
