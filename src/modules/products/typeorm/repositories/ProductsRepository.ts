@@ -12,4 +12,12 @@ export class ProductRepository extends Repository<Product> {
     });
     return product;
   }
+  public async findByID(id: string): Promise<Product | undefined> {
+    const product = await this.findOne({
+      where: {
+        id,
+      },
+    });
+    return product;
+  }
 }
