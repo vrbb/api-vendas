@@ -23,7 +23,9 @@ class Product {
   @Column('int')
   quantity: number;
 
-  @OneToMany(() => OrdersProducts, orderproducts => orderproducts.product)
+  @OneToMany(() => OrdersProducts, orderproducts => orderproducts.product, {
+    cascade: true,
+  })
   @JoinColumn({ name: 'orderProducts_id' })
   orderProducts: OrdersProducts[];
 
