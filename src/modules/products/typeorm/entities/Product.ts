@@ -25,7 +25,7 @@ class Product {
 
   @OneToMany(() => OrdersProducts, orderproducts => orderproducts.product)
   @JoinColumn({ name: 'orderProducts_id' })
-  orderProducts: OrdersProducts;
+  orderProducts: OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;
