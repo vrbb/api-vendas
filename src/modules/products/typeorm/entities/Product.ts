@@ -1,10 +1,10 @@
-// import Order from '@modules/orders/typeorm/entities/Order';
+import OrdersProducts from '@modules/orders/typeorm/entities/OrdersProducts';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,9 +23,9 @@ class Product {
   @Column('int')
   quantity: number;
 
-  // @ManyToMany(type => Order, order => order.orders)
-  // @JoinTable()
-  // orders: Order[];
+  @OneToMany(() => OrdersProducts, orderproducts => orderproducts.product)
+  @JoinColumn({ name: 'orderProducts_id' })
+  orderProducts: OrdersProducts;
 
   @CreateDateColumn()
   created_at: Date;
