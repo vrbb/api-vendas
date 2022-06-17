@@ -34,6 +34,12 @@ class CreateOrderService {
         if (product) {
           if (product?.quantity < products[index].quantity) {
             throw new AppError('Not exists this quantity of the product!');
+          } else {
+            const productUpdate = {
+              id: products[index].product_id,
+              quantity: product?.quantity - products[index].quantity,
+            };
+            await productRepository.save(productUpdate);
           }
         } else {
           throw new AppError('Product not exists!');
@@ -43,6 +49,7 @@ class CreateOrderService {
         customer: getCustomer,
         products,
       });
+
       return order;
     } catch (error) {
       throw new AppError((error as Error).message);
