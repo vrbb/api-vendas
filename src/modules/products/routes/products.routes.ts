@@ -13,7 +13,7 @@ productsRouter.get(
   isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required,
+      id: Joi.string().uuid().required(),
     },
   }),
   productsController.show,
