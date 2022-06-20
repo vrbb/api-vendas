@@ -38,9 +38,7 @@ class SendForgotPasswordEmaillService {
         file: forgotPasswordTemplate,
         variables: {
           name: user.name,
-          link: 'http://localhost:3000/user/reset_password?token='.concat(
-            userToken.token,
-          ),
+          link: `${process.env.APP_WEB_URL}/user/reset_password?token= ${userToken.token}`,
         },
       },
     });
