@@ -19,3 +19,6 @@ sudo docker exec api-vendas_db_1 psql -c "CREATE DATABASE apivendas" -U postgres
 
 ### Criando as entidades no banco de dados a partir da migation
 npm run typeorm migration:run
+
+### Criando banco redis
+sudo docker run --name redis -p 6379:6379 -d -t redis:alpine
