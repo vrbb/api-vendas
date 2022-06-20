@@ -1,3 +1,4 @@
+import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
 import CreateSessionsService from '../services/CreateSessionsService';
 import CreateUserService from '../services/CreateUserService';
@@ -12,7 +13,7 @@ export default class UsersController {
 
     const users = await listUsers.execute();
 
-    return response.json(users);
+    return response.json(instanceToInstance(users));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -25,7 +26,7 @@ export default class UsersController {
       password,
     });
 
-    return response.json(user);
+    return response.json(instanceToInstance(user));
   }
 
   public async createSession(
@@ -55,7 +56,7 @@ export default class UsersController {
       avatarFileName: file.filename,
       userId: user.id,
     });
-    return response.json(userAvatar);
+    return response.json(instanceToInstance(userAvatar));
   }
 
   public async showProfile(
@@ -69,7 +70,7 @@ export default class UsersController {
     const userAvatar = await userProfile.execute({
       id: user.id,
     });
-    return response.json(userAvatar);
+    return response.json(instanceToInstance(userAvatar));
   }
 
   public async updateProfile(
@@ -88,6 +89,6 @@ export default class UsersController {
       password: body.password,
       old_password: body.old_password,
     });
-    return response.json(userAvatar);
+    return response.json(instanceToInstance(userAvatar));
   }
 }

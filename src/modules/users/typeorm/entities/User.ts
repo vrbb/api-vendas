@@ -2,10 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  IsNull,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 class User {
@@ -19,6 +20,7 @@ class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column({ nullable: true })
