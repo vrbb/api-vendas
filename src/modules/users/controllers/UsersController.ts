@@ -41,7 +41,7 @@ export default class UsersController {
       email,
       password,
     });
-    return response.json(session);
+    return response.json(instanceToInstance(session));
   }
 
   public async uploadAvatar(
