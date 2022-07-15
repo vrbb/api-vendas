@@ -10,10 +10,13 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "docker"
+      POSTGRES_DB: "apivendas"
     ports:
       - "5432:5432"
     volumes:
       - /var/lib/postgresql/data
+    networks:
+      - postgres-compose-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -25,3 +28,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "docker"
     depends_on:
       - db
+    networks:
+      - postgres-compose-network
+
+networks:
+  postgres-compose-network:
+    driver: bridge

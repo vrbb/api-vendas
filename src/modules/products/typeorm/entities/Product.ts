@@ -1,9 +1,8 @@
-import OrdersProducts from '@modules/orders/typeorm/entities/OrdersProducts';
+import OrdersProducts from '../../../orders/typeorm/entities/OrdersProducts';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -14,20 +13,17 @@ class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @OneToMany(() => OrdersProducts, order_products => order_products.product)
+  order_products: OrdersProducts[];
+
   @Column()
   name: string;
 
-  @Column('real')
+  @Column('decimal')
   price: number;
 
   @Column('int')
   quantity: number;
-
-  @OneToMany(() => OrdersProducts, orderproducts => orderproducts.product, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'orderProducts_id' })
-  orderProducts: OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;
