@@ -9,7 +9,7 @@ export default class RedisCache {
   }
 
   public async save(key: string, value: any): Promise<void> {
-    console.log(key, value);
+    await this.client.set(key, JSON.stringify(value));
   }
 
   // public async recover<T>(key: string): Promise<T | null> {}
