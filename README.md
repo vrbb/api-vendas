@@ -22,3 +22,9 @@ npm run typeorm migration:run
 
 ### Criando banco redis
 sudo docker run --name redis -p 6379:6379 -d -t redis:alpine
+
+### Criando o Redis Client
+sudo docker run --name some-redis -d redis
+
+### Rodando o Redis Client no docker
+sudo docker run -it --network some-network --rm redis redis-cli -h some-redis
