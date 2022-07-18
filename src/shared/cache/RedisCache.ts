@@ -2,6 +2,9 @@ import Redis, { Redis as RedisClient } from 'ioredis';
 import cacheConfig from '@config/cache';
 
 export default class RedisCache {
+  static recover<T>(key: any, arg1: string) {
+    throw new Error('Method not implemented.');
+  }
   private client: RedisClient;
 
   constructor() {
