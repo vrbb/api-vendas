@@ -1,18 +1,22 @@
 import Redis, { Redis as RedisClient } from 'ioredis';
 import cacheConfig from '@config/cache';
 
-export default class RedisCache {
-  static recover<T>(key: any, arg1: string) {
-    throw new Error('Method not implemented.');
-  }
+class RedisCache {
   private client: RedisClient;
+  private connected = false;
 
   constructor() {
-    this.client = new Redis(cacheConfig.config.redis);
+    if (!this.connected) {
+      this.client = new Redis(cacheConfig.config.redis);
+      this.connected = true;
+    }
   }
 
   public async save(key: string, value: any): Promise<void> {
     await this.client.set(key, JSON.stringify(value));
+  }
+  static recover<T>(key: any, arg1: string) {
+    throw new Error('Method not implemented.');
   }
 
   public async recover<T>(key: string): Promise<T | null> {
@@ -31,3 +35,5 @@ export default class RedisCache {
     await this.client.del(key);
   }
 }
+
+export default new RedisCache();

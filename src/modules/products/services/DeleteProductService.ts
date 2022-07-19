@@ -1,4 +1,4 @@
-import RedisCache from '@shared/cache/RedisCache';
+import redisCache from '@shared/cache/RedisCache';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
@@ -14,7 +14,7 @@ class DeleteProductService {
     if (!product) {
       throw new AppError('Product not found.');
     }
-    const redisCache = new RedisCache();
+    // const redisCache = new RedisCache();
 
     await redisCache.invalidate('api-vendas-PRODUCT_LIST');
     await productsRepository.remove(product);
