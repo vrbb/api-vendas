@@ -16,6 +16,7 @@
     "handlebars": "^4.7.7",
     "ioredis": "^5.0.6",
     "jsonwebtoken": "^8.5.1",
+    "mime": "^3.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.5",
     "package.json": "^2.0.1",

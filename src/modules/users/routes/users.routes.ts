@@ -3,6 +3,7 @@ import UsersController from '../controllers/UsersController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import multer from 'multer';
+import uploadConfig from '@config/upload';
 import ForgotPasswordController from '../controllers/ForgotPasswordController';
 import ResetPasswordController from '../controllers/ResetPasswordController';
 
@@ -11,7 +12,7 @@ const usersController = new UsersController();
 const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer(uploadConfig.multer);
 
 usersRouter.get('/', isAuthenticated, usersController.index);
 
