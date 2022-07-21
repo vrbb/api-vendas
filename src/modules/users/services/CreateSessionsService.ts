@@ -1,11 +1,12 @@
 import AppError from '@shared/errors/AppError';
-import { compare, hash } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import { Secret, sign } from 'jsonwebtoken';
+import { injectable, inject } from 'tsyringe';
 import authConfig from '@config/auth';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
-import { Response, response } from 'express';
+import '@modules/users/providers';
+import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
 
 interface IRequest {
   email: string;
@@ -17,7 +18,13 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class CreateSessionsService {
+  constructor(
+    @inject('BcryptHashProvider')
+    private bcryptHashProvider: IHashProvider,
+  ) {}
+
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     try {
       const userRepository = getCustomRepository(UsersRepository);
@@ -27,13 +34,16 @@ class CreateSessionsService {
         throw new AppError('Incorrect email/password combination!', 401);
       }
 
-      const passwordConfirmed = await compare(password, user.password);
+      const passwordConfirmed = await this.bcryptHashProvider.compareHah(
+        password,
+        user.password,
+      );
 
       if (!passwordConfirmed) {
         throw new AppError('Incorrect email/password combination!', 401);
       }
 
-      const token = sign({}, authConfig.jwt.secret, {
+      const token = sign({}, authConfig.jwt.secret as Secret, {
         subject: user.id,
         expiresIn: authConfig.jwt.expires,
       });
