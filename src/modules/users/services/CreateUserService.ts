@@ -1,15 +1,22 @@
+import { IHashProvider } from './../providers/HashProvider/models/IHashProvider';
 import AppError from '@shared/errors/AppError';
-import { hash } from 'bcryptjs';
+import { injectable, inject } from 'tsyringe';
 import { getCustomRepository, InsertResult } from 'typeorm';
 import { UsersRepository } from '../typeorm/repositories/UsersRepository';
-
+import '@modules/users/providers';
 interface IRequest {
   name: string;
   email: string;
   password: string;
 }
 
+@injectable()
 class CreateUserService {
+  constructor(
+    @inject('BcryptHashProvider')
+    private bcryptHashProvider: IHashProvider,
+  ) {}
+
   public async execute({
     name,
     email,
@@ -21,7 +28,7 @@ class CreateUserService {
       throw new AppError('There is already one user with this email!');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.bcryptHashProvider.generateHash(password);
 
     const user = userRepository.insert({
       name,
