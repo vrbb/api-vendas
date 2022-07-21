@@ -34,3 +34,4 @@ services:
 networks:
   postgres-compose-network:
     driver: bridge
+sdsdsd
