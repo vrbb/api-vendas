@@ -2,6 +2,7 @@ import DeleteUserService from './../../services/DeleteUserService';
 
 describe('Delete User Service', () => {
   it('Should be able to delete a user', async () => {
+    const deleteUser = new DeleteUserService();
     const userMock = {
       id: 1,
 
@@ -12,6 +13,6 @@ describe('Delete User Service', () => {
       password: 'testsenha',
     };
 
-    const response = await DeleteUserService.execute({ id: 1 });
+    const response = await deleteUser.execute(1);
   });
 });
